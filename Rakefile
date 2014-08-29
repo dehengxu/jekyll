@@ -7,6 +7,7 @@ require 'stringex'
 source_dir    = "."
 posts_dir     = "_posts"
 new_post_ext  = "md"
+new_page_ext  = "md"
 
 task :default do
   system "jekyll build && jekyll serve --watch"
@@ -41,6 +42,50 @@ task :post, :title do |t, args|
     post.puts "---"
   end
   
+end
+
+task :new_page, :filename do |t, args|
+  puts "#{args}"
+  raise "### You haven't set anything up yet. First run `rake install` to set up an Octopress theme." unless File.directory?(source_dir)
+  args.with_defaults(:filename => 'new-page')
+  page_dir = [source_dir]
   
-  
+  if args.filename.downcase =~ /(^.+\/)?(.+)/
+    filename, dot, extension = $2.rpartition('.').reject(&:empty?)         # Get filename and extension
+    title = filename
+    page_dir.concat($1.downcase.sub(/^\//, '').split('/')) unless $1.nil?  # Add path to page_dir Array
+    if extension.nil?
+      page_dir << filename
+      filename = "index"
+    end
+
+    puts "Create file at :#{page_dir}"
+    extension ||= new_page_ext
+    # page_dir = page_dir.map! { |d| d = d.to_url }.join('/')                # Sanitize path
+    page_dir = page_dir.join("/")
+
+    filename = filename.downcase.to_url
+
+    puts "Create file at :#{page_dir}"
+
+    mkdir_p page_dir
+    file = "#{page_dir}/#{filename}.#{extension}"
+
+    if File.exist?(file)
+      abort("rake aborted!") if ask("#{file} already exists. Do you want to overwrite?", ['y', 'n']) == 'n'
+    end
+    puts "Creating new page: #{file}"
+    open(file, 'w') do |page|
+      page.puts "---"
+      page.puts "layout: page"
+      page.puts "title: \"#{title}\""
+      page.puts "date: #{Time.now.strftime('%Y-%m-%d %H:%M')}"
+      page.puts "comments: true"
+      page.puts "sharing: true"
+      page.puts "footer: true"
+      page.puts "---"
+    end
+  else
+    puts "Syntax error: #{args.filename} contains unsupported characters"
+  end
 end
