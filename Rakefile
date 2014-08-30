@@ -17,7 +17,7 @@ task :start do
   system "jekyll build && jekyll serve --watch"
 end
 
-task :post, :title do |t, args|
+task :new_post, :title do |t, args|
   puts "#{args}"
   if args.title
     title = args.title
