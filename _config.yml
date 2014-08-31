@@ -2,7 +2,7 @@
 title: 柳暗花明
 email: dehengxu@outlook.com
 description: Focus on mobile games and mobile internet technical.
-baseurl: "jekyll_blog" # the subpath of your site, e.g. /blog/
+baseurl: "/jekyll_blog" # the subpath of your site, e.g. /blog/
 url: "http://www.dehengxu.com" # the base hostname & protocol for your site
 twitter_username: dehengxu
 github_username:  xudeheng
