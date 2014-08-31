@@ -27,7 +27,8 @@ categories: jekyll, blog, github.com
 #### Install depended gems
 
 ```
-	gem install bundle  
+	gem install bundle
+	
 	bundle install
 ```
 
