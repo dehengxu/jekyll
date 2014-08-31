@@ -89,3 +89,7 @@ task :new_page, :filename do |t, args|
     puts "Syntax error: #{args.filename} contains unsupported characters"
   end
 end
+
+task :list_posts do
+  system "ls -ls " + source_dir + "/" + posts_dir
+end
