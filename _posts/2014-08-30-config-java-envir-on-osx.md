@@ -3,9 +3,11 @@ layout: post
 title: "Config java envir on OSX"
 date: 2014-08-30 14:45:49 +0800
 comments: true
-categories: 
+categories: Java
 ---
+
 Error message:
+
 > /System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Home/bin: No such file or directory
 
 Reason:
